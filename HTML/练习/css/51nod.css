@@ -1,0 +1,298 @@
+/*------------------------------------
+  debug
+------------------------------------*/
+.debug-line-red {
+    border: 1px solid #f00 !important;
+}
+
+.enterprise-logo {
+    width: 200px;
+    border: 1px solid #e0e0e0;
+    background-color: #E8E8E8;
+}
+
+@media (min-width: 768px) {
+    .dl-horizontal-left dt {
+        float: left;
+        width: inherit;
+        overflow: hidden;
+        clear: left;
+        text-align: left;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 0.5em;
+    }
+
+    .dl-horizontal-left dd {
+        margin-left: inherit;
+    }
+}
+
+/*------------------------------------
+  Heading-v3
+------------------------------------*/
+[class*="u-heading-v3-"] {
+    border-bottom: 1px solid #ccc;
+}
+
+.u-heading-v3__title {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    margin: 0;
+    padding-bottom: 0.71429rem;
+    border-bottom: 3px solid #1c84c6;
+}
+
+/*------------------------------------
+  Heading-v4
+------------------------------------*/
+[class*="u-heading-v4-"] {
+    padding: 0.14286rem 0 0.21429rem 1.42857rem;
+    border-left-width: 4px;
+    border-left-style: solid;
+    border-color: inherit;
+}
+
+    [class*="u-heading-v4-"].text-right {
+        padding: 0.14286rem 1.42857rem 0.21429rem 0;
+        border-left-width: 0;
+        border-right-width: 4px;
+        border-right-style: solid;
+    }
+
+/*------------------------------------
+  background colors
+------------------------------------*/
+.gray-bg {
+    background-color: #f3f3f4 !important;
+}
+
+img {
+    max-width: 600px;
+    height: auto;
+}
+
+/* 手机模式样式 */
+@media (max-width: 600px) {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.lh125 {
+    line-height: 125%;
+}
+
+.line1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.line4 {
+    position: relative;
+    word-break: break-all;
+    max-height: 5em;
+    overflow: hidden;
+}
+
+.edit-div {
+    width: 100%;
+    min-height: 100px;
+    max-height: 300px;
+    padding: 5px;
+    word-wrap: break-word;
+    overflow-y: auto;
+}
+
+.w-500 {
+    max-width: 500px;
+}
+
+.w-750 {
+    max-width: 750px;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.h-60 {
+    min-height: 60px;
+}
+
+.h-80 {
+    min-height: 80px;
+}
+
+.p-t-60 {
+    padding-top: 60px;
+}
+
+.p-t-40 {
+    padding-top: 40px;
+}
+
+.p-b-60 {
+    padding-bottom: 60px;
+}
+
+.topbar {
+    left: 220px;
+    right: 0;
+}
+
+.topbar {
+    min-width: 660px;
+    left: 220px;
+    right: 0;
+}
+
+.tools-item {
+    font-size: 16px;
+}
+
+body.mini-navbar .topbar {
+    left: 70px;
+    right: 0;
+}
+
+.topbar-nav {
+    max-width: 1280px;
+    margin: auto;
+    min-width: 360px;
+}
+
+.img-big {
+    width: 400px;
+    border-radius: 25px;
+}
+
+.img-content {
+    width: 500px;
+}
+
+.topbar-nav .form-control {
+    width: 300px;
+}
+
+@media (max-width: 992px) {
+    .img-big {
+        width: 300px;
+        border-radius: 15px;
+    }
+
+    .topbar-nav .form-control {
+        width: 200px;
+    }
+
+    .img-content {
+        width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .topbar {
+        left: 0;
+        right: 0;
+    }
+
+    .tools-item {
+        font-size: 14px;
+    }
+
+    i.tools-item {
+        display: none;
+    }
+
+    .img-big {
+        width: 200px;
+        border-radius: 10px;
+    }
+
+    .img-content {
+        width: 200px;
+    }
+}
+
+.w-80 {
+    min-width: 80px;
+}
+
+.problem-table {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.img-xs {
+    width: 20px;
+    height: 20px;
+}
+
+.p-t-40 {
+    padding-top: 40px;
+}
+
+.line4-fixed {
+    position: relative;
+    word-break: break-all;
+    height: 8em;
+    overflow: hidden;
+}
+
+body.body-small .small-hide {
+    display: none;
+}
+
+.topbar-nav .small-display {
+    display: none;
+}
+
+body.body-small .small-display {
+    display: inline-block;
+}
+
+body.body-small .loginColumns {
+    padding: 20px;
+}
+
+body.body-small .vertical-timeline-block {
+    margin: 0;
+}
+
+body.body-small .vertical-timeline-content {
+    margin-left: 0;
+    padding: 0.5em;
+}
+
+body.body-small .vertical-container {
+    width: 100%;
+}
+
+.saasFrame {
+    width: 100%;
+    background-color: bisque;
+}
+
+.option-icon a {
+    background: #1ab394;
+    color: #fff;
+    padding: 7px 8px;
+    height: 28px;
+    width: 28px;
+    display: block;
+    border-radius: 50px;
+}
+
+.imagebox {
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.imagebox:hover {
+    opacity: 1.0;
+}

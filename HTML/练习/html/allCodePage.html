@@ -1,0 +1,888 @@
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="NodApp" ng-controller="SimplifyController" class="ng-scope"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title ng-bind="Title" class="ng-binding">题目-任务调度器</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+<style id="ace_editor.css">.ace_editor {position: relative;overflow: hidden;font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;direction: ltr;text-align: left;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}.ace_scroller {position: absolute;overflow: hidden;top: 0;bottom: 0;background-color: inherit;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;cursor: text;}.ace_content {position: absolute;box-sizing: border-box;min-width: 100%;}.ace_dragging .ace_scroller:before{position: absolute;top: 0;left: 0;right: 0;bottom: 0;content: '';background: rgba(250, 250, 250, 0.01);z-index: 1000;}.ace_dragging.ace_dark .ace_scroller:before{background: rgba(0, 0, 0, 0.01);}.ace_selecting, .ace_selecting * {cursor: text !important;}.ace_gutter {position: absolute;overflow : hidden;width: auto;top: 0;bottom: 0;left: 0;cursor: default;z-index: 4;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}.ace_gutter-active-line {position: absolute;left: 0;right: 0;}.ace_scroller.ace_scroll-left {box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;}.ace_gutter-cell {padding-left: 19px;padding-right: 6px;background-repeat: no-repeat;}.ace_gutter-cell.ace_error {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: 2px center;}.ace_gutter-cell.ace_warning {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");background-position: 2px center;}.ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");background-position: 2px center;}.ace_dark .ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");}.ace_scrollbar {position: absolute;right: 0;bottom: 0;z-index: 6;}.ace_scrollbar-inner {position: absolute;cursor: text;left: 0;top: 0;}.ace_scrollbar-v{overflow-x: hidden;overflow-y: scroll;top: 0;}.ace_scrollbar-h {overflow-x: scroll;overflow-y: hidden;left: 0;}.ace_print-margin {position: absolute;height: 100%;}.ace_text-input {position: absolute;z-index: 0;width: 0.5em;height: 1em;opacity: 0;background: transparent;-moz-appearance: none;appearance: none;border: none;resize: none;outline: none;overflow: hidden;font: inherit;padding: 0 1px;margin: 0 -1px;text-indent: -1em;-ms-user-select: text;-moz-user-select: text;-webkit-user-select: text;user-select: text;white-space: pre!important;}.ace_text-input.ace_composition {background: inherit;color: inherit;z-index: 1000;opacity: 1;text-indent: 0;}[ace_nocontext=true] {transform: none!important;filter: none!important;perspective: none!important;clip-path: none!important;mask : none!important;contain: none!important;perspective: none!important;mix-blend-mode: initial!important;z-index: auto;}.ace_layer {z-index: 1;position: absolute;overflow: hidden;word-wrap: normal;white-space: pre;height: 100%;width: 100%;box-sizing: border-box;pointer-events: none;}.ace_gutter-layer {position: relative;width: auto;text-align: right;pointer-events: auto;}.ace_text-layer {font: inherit !important;}.ace_cjk {display: inline-block;text-align: center;}.ace_cursor-layer {z-index: 4;}.ace_cursor {z-index: 4;position: absolute;box-sizing: border-box;border-left: 2px solid;transform: translatez(0);}.ace_multiselect .ace_cursor {border-left-width: 1px;}.ace_slim-cursors .ace_cursor {border-left-width: 1px;}.ace_overwrite-cursors .ace_cursor {border-left-width: 0;border-bottom: 1px solid;}.ace_hidden-cursors .ace_cursor {opacity: 0.2;}.ace_smooth-blinking .ace_cursor {transition: opacity 0.18s;}.ace_animate-blinking .ace_cursor {animation-duration: 1000ms;animation-timing-function: step-end;animation-name: blink-ace-animate;animation-iteration-count: infinite;}.ace_animate-blinking.ace_smooth-blinking .ace_cursor {animation-duration: 1000ms;animation-timing-function: ease-in-out;animation-name: blink-ace-animate-smooth;}@keyframes blink-ace-animate {from, to { opacity: 1; }60% { opacity: 0; }}@keyframes blink-ace-animate-smooth {from, to { opacity: 1; }45% { opacity: 1; }60% { opacity: 0; }85% { opacity: 0; }}.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {position: absolute;z-index: 3;}.ace_marker-layer .ace_selection {position: absolute;z-index: 5;}.ace_marker-layer .ace_bracket {position: absolute;z-index: 6;}.ace_marker-layer .ace_active-line {position: absolute;z-index: 2;}.ace_marker-layer .ace_selected-word {position: absolute;z-index: 4;box-sizing: border-box;}.ace_line .ace_fold {box-sizing: border-box;display: inline-block;height: 11px;margin-top: -2px;vertical-align: middle;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");background-repeat: no-repeat, repeat-x;background-position: center center, top left;color: transparent;border: 1px solid black;border-radius: 2px;cursor: pointer;pointer-events: auto;}.ace_dark .ace_fold {}.ace_fold:hover{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");}.ace_tooltip {background-color: #FFF;background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));border: 1px solid gray;border-radius: 1px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);color: black;max-width: 100%;padding: 3px 4px;position: fixed;z-index: 999999;box-sizing: border-box;cursor: default;white-space: pre;word-wrap: break-word;line-height: normal;font-style: normal;font-weight: normal;letter-spacing: normal;pointer-events: none;}.ace_folding-enabled > .ace_gutter-cell {padding-right: 13px;}.ace_fold-widget {box-sizing: border-box;margin: 0 -12px 0 1px;display: none;width: 11px;vertical-align: top;background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: center;border-radius: 3px;border: 1px solid transparent;cursor: pointer;}.ace_folding-enabled .ace_fold-widget {display: inline-block;   }.ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");}.ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");}.ace_fold-widget:hover {border: 1px solid rgba(0, 0, 0, 0.3);background-color: rgba(255, 255, 255, 0.2);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);}.ace_fold-widget:active {border: 1px solid rgba(0, 0, 0, 0.4);background-color: rgba(0, 0, 0, 0.05);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);}.ace_dark .ace_fold-widget {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");}.ace_dark .ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget:hover {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);background-color: rgba(255, 255, 255, 0.1);}.ace_dark .ace_fold-widget:active {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);}.ace_inline_button {border: 1px solid lightgray;display: inline-block;margin: -1px 8px;padding: 0 5px;pointer-events: auto;cursor: pointer;}.ace_inline_button:hover {border-color: gray;background: rgba(200,200,200,0.2);display: inline-block;pointer-events: auto;}.ace_fold-widget.ace_invalid {background-color: #FFB4B4;border-color: #DE5555;}.ace_fade-fold-widgets .ace_fold-widget {transition: opacity 0.4s ease 0.05s;opacity: 0;}.ace_fade-fold-widgets:hover .ace_fold-widget {transition: opacity 0.05s ease 0.05s;opacity:1;}.ace_underline {text-decoration: underline;}.ace_bold {font-weight: bold;}.ace_nobold .ace_bold {font-weight: normal;}.ace_italic {font-style: italic;}.ace_error-marker {background-color: rgba(255, 0, 0,0.2);position: absolute;z-index: 9;}.ace_highlight-marker {background-color: rgba(255, 255, 0,0.2);position: absolute;z-index: 8;}.ace_br1 {border-top-left-radius    : 3px;}.ace_br2 {border-top-right-radius   : 3px;}.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}.ace_br4 {border-bottom-right-radius: 3px;}.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}.ace_br8 {border-bottom-left-radius : 3px;}.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}.ace_text-input-ios {position: absolute !important;top: -100000px !important;left: -100000px !important;}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace-clouds">.ace-clouds .ace_gutter {background: #ebebeb;color: #333}.ace-clouds .ace_print-margin {width: 1px;background: #e8e8e8}.ace-clouds {background-color: #FFFFFF;color: #000000}.ace-clouds .ace_cursor {color: #000000}.ace-clouds .ace_marker-layer .ace_selection {background: #BDD5FC}.ace-clouds.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px #FFFFFF;}.ace-clouds .ace_marker-layer .ace_step {background: rgb(255, 255, 0)}.ace-clouds .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid #BFBFBF}.ace-clouds .ace_marker-layer .ace_active-line {background: #FFFBD1}.ace-clouds .ace_gutter-active-line {background-color : #dcdcdc}.ace-clouds .ace_marker-layer .ace_selected-word {border: 1px solid #BDD5FC}.ace-clouds .ace_invisible {color: #BFBFBF}.ace-clouds .ace_keyword,.ace-clouds .ace_meta,.ace-clouds .ace_support.ace_constant.ace_property-value {color: #AF956F}.ace-clouds .ace_keyword.ace_operator {color: #484848}.ace-clouds .ace_keyword.ace_other.ace_unit {color: #96DC5F}.ace-clouds .ace_constant.ace_language {color: #39946A}.ace-clouds .ace_constant.ace_numeric {color: #46A609}.ace-clouds .ace_constant.ace_character.ace_entity {color: #BF78CC}.ace-clouds .ace_invalid {background-color: #FF002A}.ace-clouds .ace_fold {background-color: #AF956F;border-color: #000000}.ace-clouds .ace_storage,.ace-clouds .ace_support.ace_class,.ace-clouds .ace_support.ace_function,.ace-clouds .ace_support.ace_other,.ace-clouds .ace_support.ace_type {color: #C52727}.ace-clouds .ace_string {color: #5D90CD}.ace-clouds .ace_comment {color: #BCC8BA}.ace-clouds .ace_entity.ace_name.ace_tag,.ace-clouds .ace_entity.ace_other.ace_attribute-name {color: #606060}.ace-clouds .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y}
+/*# sourceURL=ace/css/ace-clouds */</style></head>
+
+  
+    <body class="pace-done">
+        <div id="wrapper">
+            
+
+            <div id="page-wrapper" class="white-bg" style="min-height: 671px;">
+                <div class="row border-bottom">
+    <nav id="TopBar" class="navbar navbar-fixed-top gray-bg topbar" role="navigation">
+        <div class="navbar-header">
+            <button class="navbar-minimalize minimalize-styl-2 btn btn-primary">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div role="search" class="navbar-form-custom">
+                <div class="form-group" style="width: 100px">
+                    <input id="mySearch" type="text" placeholder="搜一搜..." class="form-control" ng-show="IsDataReady" ng-init="Tools.InitSearch();" autocomplete="off" readonly="" onfocus="this.removeAttribute('readonly');">
+                </div>
+            </div>
+        </div>
+        <ul class="nav navbar-top-links navbar-right" style="margin-right: 10px">
+            <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope">
+                <a class="count-info" ng-href="/Focus.html" title="首页" href="/Focus.html">
+                    <i class="fa fa-th tools-item"></i>
+                    <span class="tools-item" style="font-weight: 200">首页</span>
+                    <!-- ngIf: UserRealTime.LogNew > 0 && UserRealTime.LogNew < 100 -->
+                    <!-- ngIf: UserRealTime.LogNew >= 100 --><span class="badge label label-warning ng-scope" ng-if="UserRealTime.LogNew >= 100">99</span><!-- end ngIf: UserRealTime.LogNew >= 100 -->
+                </a>
+            </li><!-- end ngIf: CurrentUserId -->
+            <li>
+                <a class="count-info" title="问答" ng-href="/Question/QuestionList.html" href="/Question/QuestionList.html">
+                    <i class="fa fa-question tools-item"></i>
+                    <span class="tools-item" style="font-weight: 200">问答</span>
+                    <!-- ngIf: UserRealTime.QuestionNew > 0 && UserRealTime.QuestionNew < 100 -->
+                    <!-- ngIf: UserRealTime.QuestionNew >= 100 --><span class="badge label label-warning ng-scope" ng-if="UserRealTime.QuestionNew >= 100">99</span><!-- end ngIf: UserRealTime.QuestionNew >= 100 -->
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" title="编程竞赛">
+                    <i class="far fa-clock tools-item"></i>
+                    <span class="tools-item" style="font-weight: 200">竞赛</span>
+                    <!-- ngIf: UserRealTime.ContestNew > 0 && UserRealTime.ContestNew < 100 --><span class="badge label label-warning ng-binding ng-scope" ng-if="UserRealTime.ContestNew > 0 &amp;&amp; UserRealTime.ContestNew < 100">59</span><!-- end ngIf: UserRealTime.ContestNew > 0 && UserRealTime.ContestNew < 100 -->
+                    <!-- ngIf: UserRealTime.ContestNew >= 100 -->
+                </a>
+                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                    <li>
+                        <a ng-href="/Contest/ContestList.html" href="/Contest/ContestList.html">编程竞赛
+                            <!-- ngIf: UserRealTime.ContestNew > 0 && UserRealTime.ContestNew < 100 --><span class="badge label label-warning ng-binding ng-scope" ng-if="UserRealTime.ContestNew > 0 &amp;&amp; UserRealTime.ContestNew < 100">59</span><!-- end ngIf: UserRealTime.ContestNew > 0 && UserRealTime.ContestNew < 100 -->
+                            <!-- ngIf: UserRealTime.ContestNew >= 100 -->
+                        </a>
+                    </li>
+                    <!-- ngIf: CurrentUserId --><li class="divider ng-scope" ng-if="CurrentUserId"></li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope"><a ng-href="/Contest/UserIndex.html#userId=150876" href="/Contest/UserIndex.html#userId=150876">我的编程竞赛</a></li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope"><a ng-href="/Contest/UserSubmitList.html#userId=150876" href="/Contest/UserSubmitList.html#userId=150876">我的提交记录</a></li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope"><a ng-href="/Contest/UserContestList.html#userId=150876" href="/Contest/UserContestList.html#userId=150876">我注册的比赛</a></li><!-- end ngIf: CurrentUserId -->
+                    <li class="divider"></li>
+                    <li><a ng-href="/Contest/TotalRankList.html" href="/Contest/TotalRankList.html">排行榜</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" title="编程挑战">
+                    <i class="fa fa-code tools-item"></i>
+                    <span class="tools-item" style="font-weight: 200">题库</span>
+                    <!-- ngIf: UserRealTime.ProblemNew > 0 && UserRealTime.ProblemNew < 100 -->
+                    <!-- ngIf: UserRealTime.ProblemNew >= 100 --><span class="badge label label-warning ng-scope" ng-if="UserRealTime.ProblemNew >= 100">99</span><!-- end ngIf: UserRealTime.ProblemNew >= 100 -->
+                </a>
+                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                    <li>
+                        <a ng-href="/Challenge/BeginnerProblemList.html" href="/Challenge/BeginnerProblemList.html">初学者题库
+                            <!-- ngIf: UserRealTime.BeginnerNew > 0 && UserRealTime.BeginnerNew < 100 -->
+                            <!-- ngIf: UserRealTime.BeginnerNew >= 100 --><span class="badge label label-warning ng-scope" ng-if="UserRealTime.BeginnerNew >= 100">99</span><!-- end ngIf: UserRealTime.BeginnerNew >= 100 -->
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-href="/Challenge/ProblemList.html" href="/Challenge/ProblemList.html">进阶题库
+                            <!-- ngIf: UserRealTime.ProblemNew > 0 && UserRealTime.ProblemNew < 100 -->
+                            <!-- ngIf: UserRealTime.ProblemNew >= 100 --><span class="badge label label-warning ng-scope" ng-if="UserRealTime.ProblemNew >= 100">99</span><!-- end ngIf: UserRealTime.ProblemNew >= 100 -->
+                        </a>
+                    </li>
+                    <li><a ng-href="/Challenge/TotalSubmitList.html" href="/Challenge/TotalSubmitList.html">提交状态</a></li>
+                    <!-- ngIf: CurrentUserId --><li class="divider ng-scope" ng-if="CurrentUserId"></li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope"><a ng-href="/Challenge/UserIndex.html#userId=150876" href="/Challenge/UserIndex.html#userId=150876">我的编程挑战</a></li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope"><a ng-href="/Challenge/UserSubmitList.html#userId=150876" href="/Challenge/UserSubmitList.html#userId=150876">我的提交记录</a></li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope"><a ng-href="/Challenge/UserFocusProblemList.html#userId=150876" href="/Challenge/UserFocusProblemList.html#userId=150876">我关注的题目</a></li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: Permission.IsProblemEditor(CurrentUser.Permission) || CurrentUserStat.TestProblemCount -->
+                    <li class="divider"></li>
+                    <li><a ng-href="/Challenge/TotalRankList.html" href="/Challenge/TotalRankList.html">排行榜</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" title="学习">
+                    <i class="fab fa-leanpub tools-item"></i>
+                    <span class="tools-item" style="font-weight: 200">学习</span>
+                    <!-- ngIf: UserRealTime.TutorialNew + UserRealTime.LiveNew > 0 && UserRealTime.TutorialNew + UserRealTime.LiveNew < 100 --><span class="badge label label-warning ng-binding ng-scope" ng-if="UserRealTime.TutorialNew + UserRealTime.LiveNew > 0 &amp;&amp; UserRealTime.TutorialNew + UserRealTime.LiveNew < 100">37
+                    </span><!-- end ngIf: UserRealTime.TutorialNew + UserRealTime.LiveNew > 0 && UserRealTime.TutorialNew + UserRealTime.LiveNew < 100 -->
+                    <!-- ngIf: UserRealTime.TutorialNew + UserRealTime.LiveNew >= 100 -->
+                </a>
+                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                    <li>
+                        <a ng-href="/Live/LiveList.html" href="/Live/LiveList.html">直播列表
+                            <!-- ngIf: UserRealTime.LiveNew --><span class="badge m-l-sm label label-warning ng-binding ng-scope" ng-if="UserRealTime.LiveNew">37
+                            </span><!-- end ngIf: UserRealTime.LiveNew -->
+                        </a>
+                    </li>
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope">
+                        <a ng-href="/Live/UserLiveList.html#userId=150876" href="/Live/UserLiveList.html#userId=150876">我的直播</a>
+                    </li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope">
+                        <a ng-href="/Live/UserRegLiveList.html#userId=150876" href="/Live/UserRegLiveList.html#userId=150876">我参与的直播</a>
+                    </li><!-- end ngIf: CurrentUserId -->
+                    <li class="divider"></li>
+                    <li>
+                        <a ng-href="/Blog/BlogList.html" href="/Blog/BlogList.html">博客列表</a>
+                    </li>
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope">
+                        <a ng-href="/Blog/UserBlogList.html#userId=150876" href="/Blog/UserBlogList.html#userId=150876">我的博客</a>
+                    </li><!-- end ngIf: CurrentUserId -->
+                    <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope">
+                        <a ng-href="/Blog/BlogEdit.html" href="/Blog/BlogEdit.html">创建博客</a>
+                    </li><!-- end ngIf: CurrentUserId -->
+                    <!--<li class="divider"></li>-->
+                    <!--<li>
+                        <a ng-href="{{Path.Tutorial.TutorialList()}}">自助教程       
+                            <span class="badge m-l-sm label label-warning" ng-if="UserRealTime.TutorialNew">{{UserRealTime.TutorialNew}}
+                            </span>
+                        </a>
+                    </li>
+                    <li ng-if="CurrentUserId">
+                        <a ng-href="{{Path.Tutorial.UserTutorialList(CurrentUser)}}">我参与的教程</a>
+                    </li>-->
+                </ul>
+            </li>
+            <!-- ngIf: CurrentUserId --><li ng-if="CurrentUserId" class="ng-scope">
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" title="通知及私信">
+                    <i class="far fa-bell tools-item"></i>
+                    <span class="tools-item" style="font-weight: 200">通知</span>
+                    <!-- ngIf: UserRealTime.MessageNew + UserRealTime.SysNoticeNew + UserRealTime.NoticeNew + UserRealTime.MentionNew > 0 && UserRealTime.MessageNew + UserRealTime.SysNoticeNew + UserRealTime.NoticeNew + UserRealTime.MentionNew < 100 -->
+                    <!-- ngIf: UserRealTime.MessageNew + UserRealTime.SysNoticeNew + UserRealTime.NoticeNew + UserRealTime.MentionNew >= 100 -->
+                </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li>
+                        <a ng-href="/Home/Message.html" href="/Home/Message.html">
+                            <div class="ng-binding">
+                                <i class="fa fa-envelope"></i>
+                                你有 0 条新私信
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a ng-href="/Home/NoticeList.html#isSystem=true" href="/Home/NoticeList.html#isSystem=true">
+                            <div class="ng-binding">
+                                <i class="fas fa-cog"></i>
+                                你有 0 条新系统提醒 
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a ng-href="/Home/NoticeList.html#isSystem=false" href="/Home/NoticeList.html#isSystem=false">
+                            <div class="ng-binding">
+                                <i class="far fa-comment-alt"></i>
+                                你有 0 条新提醒
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a ng-href="/Home/MentionList.html" href="/Home/MentionList.html">
+                            <div class="ng-binding">
+                                <i class="fa fa-at"></i>
+                                最新@我 0 次
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- end ngIf: CurrentUserId -->
+            <!-- ngIf: !CurrentUserId -->
+            <!-- ngIf: !CurrentUserId -->
+        </ul>
+    </nav>
+</div>
+
+                <div id="main-content" class="row p-t-60">
+                    <div class="col-lg-12">
+                        <div class="wrapper wrapper-content clear">
+                            <div class="col-lg-9">
+                                <div id="vertical-timeline" class="vertical-container light-timeline no-margins">
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-briefcase"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                            <!-- ProblemMenu -->
+<div class="btn-group pull-right">
+    <!-- ngIf: ProblemView.UserView.CanWrite -->
+    <!-- ngIf: CurrentUserId --><button class="btn btn-xs btn-white ng-scope" type="button" data-toggle="modal" data-target="#Favorite" ng-if="CurrentUserId" ng-click="FavoriteScope.getFavoriteItem(ProblemView, 'Problem');">
+        <i class="fa fa-star"></i> 收藏
+    </button><!-- end ngIf: CurrentUserId -->
+    <!-- ngIf: !ProblemView.UserView.FocusId && CurrentUserId --><button class="btn btn-xs btn-white ng-scope" type="button" ng-click="NodPost.FocusProblem.Append(ProblemView)" ng-if="!ProblemView.UserView.FocusId &amp;&amp; CurrentUserId">
+        <i class="fa fa-plus"></i> 关注
+    </button><!-- end ngIf: !ProblemView.UserView.FocusId && CurrentUserId -->
+    <!-- ngIf: ProblemView.UserView.FocusId -->
+    <button class="btn btn-xs btn-info ng-hide" type="button" ng-click="HideTopic=false;Tools.SetCookie('HideTopic', HideTopic, 365);" ng-show="HideTopic">
+        <i class="fa fa-thumbs-up"></i> 显示标签
+    </button>
+    <button class="btn btn-xs btn-white" type="button" ng-click="HideTopic=true;Tools.SetCookie('HideTopic', HideTopic, 365);" ng-show="!HideTopic">
+        <i class="fa fa-thumbs-up"></i> 隐藏标签
+    </button>
+    <!-- ngIf: CurrentUserId && CurrentUser.HasMobile --><button class="btn btn-xs btn-white ng-binding ng-scope" data-toggle="modal" data-target="#TopicEdit" ng-if="CurrentUserId &amp;&amp; CurrentUser.HasMobile">
+        <i class="fa fa-edit"></i> 修改标签
+    </button><!-- end ngIf: CurrentUserId && CurrentUser.HasMobile -->
+</div>
+<!-- End ProblemMenu -->
+<!-- Model: TopicEdit -->
+<div class="modal inmodal fade" id="TopicEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭窗口</span></button>
+                <h4 class="modal-title">修改标签</h4>
+            </div>
+            <div class="modal-body">
+                <p>选择标签</p>
+                <!-- ngIf: IsDataReady --><select id="mySelect" class="form-control ng-scope select2-hidden-accessible" multiple="" ng-if="IsDataReady" ng-init="Tools.InitSearchTopic(ProblemView.Topics)" tabindex="-1" aria-hidden="true">
+                <option value="238">贪心</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title="贪心"><span class="select2-selection__choice__remove" role="presentation">×</span>贪心</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span><!-- end ngIf: IsDataReady -->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="NodPost.Topic.Rework(ProblemView, 'Problem')">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Model: TopicEdit -->
+<!-- Select2 -->
+<style>
+    .select2-dropdown {
+        z-index: 10000 !important; /*1051;*/
+    }
+    .select2-search__field{
+        min-width:1px !important;
+    }
+</style>
+<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/select2.full.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/zh-CN.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+<!--因为作用域原因这里用ng-show-->
+<div ng-init="HideTopic=Tools.GetCookie('HideTopic');" ng-show="!HideTopic">
+    <!-- ngRepeat: Topic in ProblemView.Topics --><a class="badge badge-success m-r-xs g-mr-10 ng-binding ng-scope" ng-repeat="Topic in ProblemView.Topics" ng-href="/Challenge/TopicProblemList.html#topicId=238" href="/Challenge/TopicProblemList.html#topicId=238">
+        贪心
+    </a><!-- end ngRepeat: Topic in ProblemView.Topics -->
+</div>
+<a ng-href="/Challenge/Problem.html#problemId=2498" href="/Challenge/Problem.html#problemId=2498"><h1 class="g-color-gray-dark-v3 ng-binding">2498 任务调度器</h1></a>
+<ol class="breadcrumb">
+    <li>
+        <i class="fa fa-clock m-r-xs"></i><span class="ng-binding">2.0 秒</span>
+    </li>
+    <li class="ng-binding">262,144.0 KB</li>
+    <li class="ng-binding">10 分</li>
+    <!-- ngIf: ProblemView.Problem.ProblemType !== NodEnum.ProblemTypeEnum.Beginner.Index --><li ng-if="ProblemView.Problem.ProblemType !== NodEnum.ProblemTypeEnum.Beginner.Index" class="ng-scope"><a class="ng-binding" ng-href="/Challenge/ProblemList.html#level=3" href="/Challenge/ProblemList.html#level=3">2级题</a></li><!-- end ngIf: ProblemView.Problem.ProblemType !== NodEnum.ProblemTypeEnum.Beginner.Index -->
+    <!-- ngIf: ProblemView.Problem.ProblemType === NodEnum.ProblemTypeEnum.Beginner.Index -->
+</ol>
+                                        </div>
+                                    </div>
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon blue-bg">
+                                            <i class="fas fa-file-alt"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                                                                        <div ng-init="LaTexId = Tools.Random(); FullText = true;">
+    <div ng-bind-html="ProblemView.Problem.Description | filterToBrief" class="m-t-sm h4 lh125 line4 ng-binding ng-hide" ng-show="!FullText">给定一个用字符数组表示的 CPU 需要执行的任务列表。其中包含使用大写的 A - Z 字母表示的26 种不同种类的任务。任务可以以任意顺序执行，并且每个任务都可以在 1 个单位时间内执行完。CPU 在任何一个单位时间内都可以执行一个任务，或者在待命状态。
+
+然而，两个相同种类的任务之间必须有长度为&nbsp;n 的冷却时间。
+
+具体看样例解释。
+
+你需要计算完成所有任务所需要的最短时间。
+
+&nbsp;
+
+&nbsp;</div>
+    <div id="LaTex523816838" ng-bind-html="ProblemView.Problem.Description | filterToLaTex | filterToTrusted" class="m-t-sm h4 lh125 ng-binding" ng-show="FullText"><p>给定一个用字符数组表示的 CPU 需要执行的任务列表。其中包含使用大写的 A - Z 字母表示的26 种不同种类的任务。任务可以以任意顺序执行，并且每个任务都可以在 1 个单位时间内执行完。CPU 在任何一个单位时间内都可以执行一个任务，或者在待命状态。</p>
+
+<p>然而，两个<strong>相同种类</strong>的任务之间必须有长度为<strong>&nbsp;n </strong>的冷却时间。</p>
+
+<p>具体看样例解释。</p>
+
+<p>你需要计算完成所有任务所需要的<strong>最短时间</strong>。</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p></div>
+    <button ng-show="FullText" class="btn btn-xs btn-white m-t-sm" ng-click="FullText = false;">
+        <i class="fas fa-level-up-alt"></i> 收起
+    </button>
+    <button ng-show="!FullText" class="btn btn-xs btn-white m-t-sm ng-hide" ng-click="FullText = true;">
+        <i class="fas fa-level-down-alt"></i> 展开全文
+    </button>
+    <!-- ngIf: IsDataReady --><span ng-if="IsDataReady" ng-init="Tools.ToLaTex('LaTex' + LaTexId);" class="ng-scope"></span><!-- end ngIf: IsDataReady -->
+</div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon lazur-bg">
+                                            <i class="fas fa-keyboard"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+    <h1>输入</h1>
+    <pre style="font-size: medium; word-wrap: break-word; white-space: pre-wrap;" class="ng-binding">第一行输入一个数m，表示要完成的任务数；
+第二行输入一个由大写字母组成的字符串，表示要完成的任务；
+第三行输入一个数n；</pre>
+    <h1>输出</h1>
+    <pre style="font-size: medium; word-wrap: break-word; white-space: pre-wrap;" class="ng-binding">输出一个数，表示完成任务的时间</pre>
+    <!-- ngIf: ProblemView.Problem.DataDescription --><h1 ng-if="ProblemView.Problem.DataDescription" class="ng-scope">数据范围</h1><!-- end ngIf: ProblemView.Problem.DataDescription -->
+    <!-- ngIf: ProblemView.Problem.DataDescription --><pre ng-if="ProblemView.Problem.DataDescription" style="font-size: medium; word-wrap: break-word; white-space: pre-wrap;" class="ng-binding ng-scope">对于100%的数据，0≤m≤10000，0≤n≤100.</pre><!-- end ngIf: ProblemView.Problem.DataDescription -->
+    <h1>输入样例</h1>
+    <pre style="position: relative;" class="ng-binding"><i ng-clip-btn="" data-title="复制输入样例到剪贴板" data-value="ProblemView.Problem.InputSample" class="fas fa-copy text-success" title="复制内容" style="position: absolute;right: 0.8em; cursor:pointer; font-size: 1.2em;" data-clipboard-action="copy"></i>6
+AAABBB
+2</pre>
+    <h1>输出样例</h1>
+    <pre class="ng-binding">8</pre>
+    <!-- ngIf: ProblemView.Problem.SampleDescription --><h1 ng-if="ProblemView.Problem.SampleDescription" class="ng-scope">样例解释</h1><!-- end ngIf: ProblemView.Problem.SampleDescription -->
+    <!-- ngIf: ProblemView.Problem.SampleDescription --><div ng-if="ProblemView.Problem.SampleDescription" ng-init="LaTexId = Tools.Random();" class="ng-scope">
+        <div id="LaTex437375334" ng-bind-html="ProblemView.Problem.SampleDescription | filterToLaTex | filterToTrusted" class="m-t-sm h4 lh125 ng-binding"><p>A -&gt; B -&gt; (待命) -&gt; A -&gt; B -&gt; (待命) -&gt; A -&gt; B.<br>
+在本示例中，两个相同类型任务之间必须间隔长度为 n = 2 的冷却时间，而执行一个任务只需要一个单位时间，所以中间出现了（待命）状态。</p></div>
+        <!-- ngIf: IsDataReady --><span ng-if="IsDataReady" ng-init="Tools.ToLaTex('LaTex' + LaTexId);" class="ng-scope"></span><!-- end ngIf: IsDataReady -->
+    </div><!-- end ngIf: ProblemView.Problem.SampleDescription -->
+</div>
+
+                                    </div>
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon yellow-bg">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                            <div class="feed-element col-lg-4 no-margins">
+    <a class="pull-left" ng-href="/User/Index.html#userId=17433" href="/User/Index.html#userId=17433">
+        <img alt="。" title="。" class="img-circle" ng-src="//upload.51nod.com/upload/000FC2CC/08D4B1EA6A4EA5740000000000000003.jpeg" src="//upload.51nod.com/upload/000FC2CC/08D4B1EA6A4EA5740000000000000003.jpeg">
+    </a>
+    <div class="media-body ">
+        <small class="pull-right badge badge-primary">出题人</small>
+        <strong class="ng-binding">。</strong><br>
+        <small class="text-muted ng-binding"></small>
+    </div>
+</div>
+<!-- ngIf: ProblemView.RealTestUser -->
+
+                                        </div>
+                                    </div>
+                                    <!-- ngIf: ProblemViews -->
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-code"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                            <ol class="breadcrumb">
+    <li><div style="position: relative">
+    <a data-toggle="dropdown" class="dropdown-toggle ng-binding">C<b class="caret m-l-sm"></b></a>
+    <ul class="dropdown-menu animated fadeInRight" style="width: 200px">
+        <!-- ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">C</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">C++</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">C#</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Python2</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">PyPy2</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Ruby</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Haskell</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Javascript</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Visual C++</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterEven" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Pascal</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterEven -->
+        <!-- ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">C 11</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">C++ 11</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Java</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Python3</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">PyPy3</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Php</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Scala</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Go</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd --><div ng-repeat="LanguageItem in LanguageList | filterAhead : 1 | filterOdd" class="col-xs-6 m-t-xs m-b-xs ng-scope" ng-click="setLanguage(LanguageItem.Index)"><a class="g-color-gray-dark-v4 ng-binding">Objective C</a></div><!-- end ngRepeat: LanguageItem in LanguageList | filterAhead : 1 | filterOdd -->
+    </ul>
+</div>
+<script type="text/javascript" charset="utf-8">
+    PageFun.push(function () {
+        Scope.setLanguage = function (index) {
+            AceEditor.SetLanguage(Scope.LanguageList[index].AceName);
+            Scope.Lang = Scope.LanguageList[index].Lang;
+            Tools.SetCookie('Lang', Scope.Lang, 365);
+        }
+    })
+</script>
+
+    </li>
+    <li>
+        <i class="fa fa-clock m-r-xs"></i>
+        <span class="ng-binding">2.0 秒</span>
+    </li>
+    <li class="ng-binding">262,144.0 KB
+    </li>
+    <!-- ngIf: ProblemView.Problem.SpecialProgramLanguage -->
+    <li>
+        <a target="_blank" class="ng-binding" ng-href="/Question/Index.html#questionId=1178" href="/Question/Index.html#questionId=1178">C示例及说明
+        </a>
+    </li>
+    <li>
+        <a ng-click="Tools.AceEditor.SetValue(LanguageList.byLang[Lang].DefaultProgram);">
+            <span class="badge badge-success">导入模板</span>
+        </a>
+    </li>
+    <li>
+        <a ng-click="NodPost.TempJson.AppendPasteSimple(ProblemView.Problem.InputSample, Lang);">
+            <span class="badge badge-success">代码调试分享</span>
+        </a>
+    </li>
+</ol>
+
+                                            <div ng-show="CurrentUserId" class="">
+    <!--代码输入框（注意请务必设置高度，否则无法显示）-->
+    <pre id="code" class="ace_editor m-t-md ace-clouds" style="min-height: 400px; font-size: 18px;" draggable="false"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0; left: 57px; height: 22px; width: 9.89648px; top: 44px;"></textarea><div class="ace_gutter" aria-hidden="true"><div class="ace_layer ace_gutter-layer ace_folding-enabled" style="margin-top: 0px; height: 442px; width: 53px;"><div class="ace_gutter-cell " style="height: 22px;">1</div><div class="ace_gutter-cell " style="height: 22px;">2</div><div class="ace_gutter-cell " style="height: 22px;">3</div><div class="ace_gutter-cell " style="height: 22px;">4</div><div class="ace_gutter-cell " style="height: 22px;">5</div><div class="ace_gutter-cell " style="height: 22px;">6</div><div class="ace_gutter-cell " style="height: 22px;">7</div><div class="ace_gutter-cell " style="height: 22px;">8</div><div class="ace_gutter-cell " style="height: 22px;">9</div><div class="ace_gutter-cell " style="height: 22px;">10</div><div class="ace_gutter-cell " style="height: 22px;">11</div><div class="ace_gutter-cell " style="height: 22px;">12</div><div class="ace_gutter-cell " style="height: 22px;">13</div><div class="ace_gutter-cell " style="height: 22px;">14</div><div class="ace_gutter-cell " style="height: 22px;">15</div><div class="ace_gutter-cell " style="height: 22px;">16</div><div class="ace_gutter-cell " style="height: 22px;">17</div><div class="ace_gutter-cell " style="height: 22px;">18</div><div class="ace_gutter-cell " style="height: 22px;">19</div><div class="ace_gutter-cell " style="height: 22px;">20</div></div><div class="ace_gutter-active-line" style="top: 44px; height: 22px;"></div></div><div class="ace_scroller" style="left: 53px; right: 17px; bottom: 0px;"><div class="ace_content" style="margin-top: 0px; width: 312px; height: 442px; margin-left: 0px;"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 796px; visibility: hidden;"></div></div><div class="ace_layer ace_marker-layer"><div class="ace_active-line" style="height:22px;top:44px;left:0;right:0;"></div></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"><span class="ace_identifier">jjj4</span></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div><div class="ace_line_group" style="height:22px"><div class="ace_line" style="height:22px"></div></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor" style="left: 4px; top: 44px; width: 9.89648px; height: 22px; animation-duration: 1000ms;"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="width: 22px; bottom: 0px;"><div class="ace_scrollbar-inner" style="width: 22px; height: 506px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="height: 22px; left: 53px; right: 17px; display: none;"><div class="ace_scrollbar-inner" style="height: 22px; width: 339px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></pre>
+</div>
+<div ng-show="!CurrentUserId" class="text-center ng-hide">
+    <h1>登录后方可提交代码</h1>
+</div>
+<script type="text/javascript">
+    var AceEditor = {
+        Init: function () {
+            //初始化对象
+            this.editor = ace.edit('code');
+            var editor = this.editor;
+            //设置风格和语言（更多风格和语言，请到github上相应目录查看）
+            var theme = "clouds"
+            var language = "c_cpp"
+            editor.setTheme("ace/theme/" + theme);
+            editor.session.setMode("ace/mode/" + language);
+            //字体大小
+            editor.setFontSize(18);
+            //设置只读（true时只读，用于展示代码）
+            editor.setReadOnly(false);
+            //自动换行,设置为off关闭
+            editor.setOption("wrap", "free")
+            //关闭编辑器那条奇怪的竖线
+            editor.setShowPrintMargin(false);
+            //启用提示菜单
+            ace.require("/js/ace/ext/language_tools");
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+
+            editor.off("change", editor.autoSave);
+        },
+        SetLanguage: function (language) {
+            //设置语言
+            if (language !== undefined && language.length > 0) this.editor.session.setMode("ace/mode/" + language);
+        },
+        SetTheme: function (theme) {
+            //设置风格
+            this.editor.setTheme("ace/theme/" + theme);
+        },
+        LastGetValue: "",
+        LastLang: "",
+        GetValue: function () {
+            //获得代码
+            this.LastGetValue = this.editor.getValue();
+            this.LastLang = Scope.Lang;
+            return this.LastGetValue;
+        },
+        SetValue: function (input, index) {
+            //设置代码
+            if (input !== undefined && input.length > 0) return this.editor.setValue(input, index == undefined ? 1 : index);
+        },
+        ClearValue: function () {
+            //清空代码
+            return this.editor.setValue("");
+        },
+        SetReadOnly: function (input) {
+            //设置只读（true时只读，用于展示代码）
+            this.editor.setReadOnly(input);
+        },
+        SetAutoSave: function (problemId) {
+            //设置自动保存
+            var editor = this.editor;
+            editor.saveFlag = false;
+            editor.saveId = problemId;
+            editor.autoSave = function () {
+                if (editor.saveId && !editor.saveFlag) {
+                    editor.saveFlag = true;
+                    var timer = setTimeout(function () {
+                        NodPost.ProgramDraft.SaveLazyDraft(editor.saveId, editor.getValue(), Scope.Lang);
+                        editor.saveFlag = false;
+                    }, 15000);
+                }
+            };
+            editor.on("change", editor.autoSave);
+        },
+        SubmitHook: function () {
+            var ProgramContent = this.editor.getValue();
+            var ProgramLanguage = LanguageList.byLang[Scope.Lang].Language;
+
+            if (ProgramContent) {
+                if (ProgramContent.length <= (64 << 10)) {
+                    var Language = this.CheckLanguage(ProgramContent, ProgramLanguage);
+
+                    if (Language != ProgramLanguage && confirm('检测到你的代码具有 ' + LanguageList.byLanguage[Language].DisplayName + ' 的特征，是否确认使用 ' + LanguageList.byLanguage[Language].DisplayName + ' 替换您选择的 ' + LanguageList.byLanguage[ProgramLanguage].DisplayName + ' 来编译代码？')) {
+                        Scope.setLanguage(LanguageList.byLanguage[Language].Index);
+                    } else
+                        return true;
+                }
+                else {
+                    Tools.SweetAlert("提交代码", "您的代码长度不能超过64KB。", "error");
+                    return false;
+                }
+            }
+            else {
+                Tools.SweetAlert("提交代码", "您的代码不能为空。", "error");
+                return false;
+            }
+        },
+        CheckLanguage: function (Code, Language) {
+            switch ((Code = Code.replace(/^([\r\n\s]*\/\/[^\n]*\n[\r\n\s]*)+/g, '')).charCodeAt(0)) {
+                case 35:
+                    switch (Code.substring(0, 8)) {
+                        case '#include':
+                            var Is11 = Code.match(/#include\s+[\<"](stdalign|stdatomic|stdnoreturn|threads|uchar)\.h[\>"]/g), IsPlus = Code.match(/using\s+namespace\s+/g) || Code.indexOf('std::') >= 0;
+                            switch (Language) {
+                                case 'C': return IsPlus ? (Is11 ? 'CPlus11' : 'CPlus') : (Is11 ? 'C11' : 'C');
+                                case 'C11': return IsPlus ? 'CPlus11' : 'C11';
+                                case 'CPlus': return Is11 ? 'CPlus11' : 'CPlus';
+                                case 'CPlus11': return Language;
+                                case 'VCPlus': return Code.match(/#include\s+[\<"]bits\/stdc\+\+\.h[\>"]/g) ? 'CPlus' : Language;
+                            }
+                            if (!IsPlus && !Code.match(/#include\s+[\<"](iostream|cstring)[\>"]/g) && (Code.match(/#include\s+[\<"](iostream|string)\.h[\>"]/g) || Code.match(/(malloc|free)\(/g))) return Is11 ? 'C11' : 'C';
+                            return Is11 ? 'CPlus11' : 'CPlus';
+                        case '#import ': return 'OC';
+                    }
+                    break;
+                case 105:
+                    switch (Code.substring(0, 12)) {
+                        case 'import java.': return 'Java';
+                        case 'import scala': return 'Scala';
+                    }
+                    if (Code.substring(0, 10) == 'import sys') {
+                        switch (Language) {
+                            case 'Python2': case 'PyPy2': return Language;
+                            case 'Python3': case 'PyPy3': return Code.indexOf('raw_input(') >= 0 ? 'Python2' : Language;
+                        }
+                        return 'Python3';
+                    }
+                case 117: if (Code.substring(0, 12) == 'using System') return 'CSharp';
+                case 112: if (Code.substring(0, 12) == 'package main') return 'Go';
+                case 109: if (Code.substring(0, 9) == 'main = do' || Code.substring(0, 7) == 'main=do') return 'Haskell';
+                case 60: if (Code.substring(0, 5) == '<?php') return 'Php';
+            }
+            if (Code.match(/[\r\n]+\s*begin\s*[\r\n]+/gi) && (Code.match(/[\r\n]+\s*end[;\.]?\s*[\r\n]+/gi) || Code.match(/[\r\n]+\s*end[;\.]?\s*$/gi))) return 'Pascal';
+            if (Code.match(/process\.std(in|out)\./g)) return 'Javascript';
+            if (Code.match(/scala\.io\./g)) return 'Scala';
+            if (Code.match(/gets\./g) && Code.match(/puts /g)) return 'Ruby';
+            if (Code.indexOf('raw_input\(') >= 0) return Language == 'PyPy2' ? 'PyPy2' : 'Python2';
+            return Language;
+        },
+    }
+    Tools.AceEditor = AceEditor;
+</script>
+
+                                            <div class="col-lg-12 text-right" ng-show="CurrentUserId">
+                                                <label class="font-normal control-label block pull-left" ng-show="ProblemView.Problem.ShowType === NodEnum.ShowTypeEnum.Show.Index">
+                                                    <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" ng-init="IsPublic=true" ng-model="IsPublic" ng-icheck="" class="ng-untouched ng-valid ng-empty ng-dirty ng-valid-parse" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0; cursor: pointer;"></ins></div>
+                                                    <span class="g-ml-10">允许其他 AC 用户查看此代码</span>
+                                                </label>
+                                                <button class="btn btn-primary m-l-md ladda-button" ng-click="NodPost.Judge.Run(ProblemView.Problem.Id, Lang)" ng-ladda="" data-style="expand-left"><span class="ladda-label">
+                                                    运行代码
+                                                </span><span class="ladda-spinner"></span></button>
+                                                <button ng-show="ProblemView.Problem.ShowType === NodEnum.ShowTypeEnum.Show.Index" class="btn btn-primary m-l-md" ng-click="NodPost.Judge.Append(ProblemView.Problem.Id, Lang, IsPublic)">
+                                                    提交代码
+                                                </button>
+                                                <button ng-show="ProblemView.Problem.ShowType !== NodEnum.ShowTypeEnum.Show.Index" class="btn btn-primary m-l-md ladda-button ng-hide" ng-click="NodPost.Judge.RunAll(ProblemView.Problem.Id, Lang);" ng-ladda="" data-style="expand-left"><span class="ladda-label">
+                                                    提交代码
+                                                </span><span class="ladda-spinner"></span></button>
+                                            </div>
+                                            <!-- ngIf: TempJudgeShow && TempJudgeOne -->
+<!-- ngIf: TempJudgeShow && !TempJudgeOne -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-controller="FavoriteModCtrl" class="ng-scope">
+    <!-- Modal: Favorite -->
+    <div class="modal inmodal fade" id="Favorite" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭窗口</span></button>
+                    <h4 class="modal-title ng-binding">为选择收藏?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#CreateFavorite"><i class="fa fa-plus g-color-green g-mr-10"></i>创建一个新的收藏</button>
+                    </p>
+                    <p>
+                        </p><!-- ngRepeat: FavoriteItem in FavoriteItems -->
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal: Favorite -->
+    <!-- Modal: CreateFavorite -->
+    <div class="modal inmodal fade" id="CreateFavorite" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭窗口</span></button>
+                    <h4 class="modal-title">创建收藏</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="FavoriteName" placeholder="收藏名称">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="NodPost.Favorite.Append(FavoriteName, type);">创建收藏</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal: CreateFavorite -->
+</div>
+<script type="text/javascript" charset="utf-8">
+    MainApp.controller('FavoriteModCtrl', function ($scope, $http, $location) {
+        Scope.FavoriteScope = $scope;
+        $scope.NodPost = NodPost;
+
+        var str = "/Favorite/FavoriteItem";
+        var data = {};
+        var url = ControllerTools.GetUrlItem(str, data);
+
+        $scope.getFavoriteItem = function (LinkView, LinkType) {
+            $scope.type = NodEnum.FavoriteTypeEnum[LinkType].Index;
+            $scope.LinkView = LinkView;
+            data['linkId'] = LinkView.Id;
+            data['linkType'] = $scope.type;
+            url = ControllerTools.GetUrlItem(str, data);
+            $http({
+                method: 'GET',
+                url: url,
+            }).then(function successCallback(response) {
+                $scope.FavoriteItems = null;
+                // 请求成功执行代码
+                LinkView.FavoriteItems = response.data.FavoriteItems;
+                $scope.FavoriteItems = LinkView.FavoriteItems;
+
+                Getter.DfsObj(LinkView);
+            }, function errorCallback(response) {
+                // 请求失败执行代码
+                console.log('数据请求失败!\n Message:' + response.data.Message + '\n StackTrace:' + response.data.StackTrace);
+            });
+        };
+
+        $scope.refreshData = function () {
+            $http({
+                method: 'GET',
+                url: url,
+            }).then(function successCallback(response) {
+                $scope.FavoriteItems = null;
+                // 请求成功执行代码
+                Tools.DeepCover($scope.LinkView.FavoriteItems, response.data.FavoriteItems);
+                Tools.DeepCover($scope.FavoriteItems, $scope.LinkView.FavoriteItems);
+                //$scope.LinkView.FavoriteItems = response.data.FavoriteItems;
+                //$scope.FavoriteItems = $scope.LinkView.FavoriteItems;
+
+                Getter.DfsObj($scope.LinkView);
+            }, function errorCallback(response) {
+                // 请求失败执行代码
+                console.log('数据请求失败!\n Message:' + response.data.Message + '\n StackTrace:' + response.data.StackTrace);
+            });
+        };
+
+    });
+</script>
+
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="ibox">
+    <div class="ibox-content clear">
+        <div class="col-lg-4 text-center w-80">
+            <h1 class="no-margins ng-binding">10</h1>
+            <small>分值</small>
+        </div>
+        <div class="col-lg-4 text-center border-left w-80">
+            <a ng-href="/Challenge/EfficiencyRank.html#problemId=2498" href="/Challenge/EfficiencyRank.html#problemId=2498">
+                <h1 class="no-margins text-navy ng-binding">11</h1>
+                <small class="text-navy">Accepted</small>
+            </a>
+        </div>
+
+        <div class="col-lg-4 text-center border-left w-80">
+            <a ng-href="/Challenge/ProblemSubmitList.html#problemId=2498" href="/Challenge/ProblemSubmitList.html#problemId=2498">
+                <h1 class="no-margins text-success ng-binding">92</h1>
+                <small class="text-success">提交</small>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <ul class="nav nav-stacked nav-pills">
+            <li>
+                <a ng-href="/Challenge/Problem.html#problemId=2498" href="/Challenge/Problem.html#problemId=2498">
+                    <i class="fa fa-arrow-right"></i>
+                    题目描述<i class="fa arrow"></i>
+                </a>
+            </li>
+            <li>
+                <a ng-href="/Challenge/ProblemSubmitList.html#problemId=2498" href="/Challenge/ProblemSubmitList.html#problemId=2498">
+                    <i class="fa fa-arrow-right"></i>
+                    所有提交记录<i class="fa arrow"></i>
+                </a>
+            </li>
+            <!-- ngIf: ProblemView.UserView.SubmitCount -->
+            <li>
+                <a ng-href="/Challenge/AcceptedRank.html#problemId=2498" href="/Challenge/AcceptedRank.html#problemId=2498">
+                    <i class="fa fa-arrow-right"></i>
+                    排行榜<i class="fa arrow"></i>
+                </a>
+            </li>
+            <!-- ngIf: ProblemView.Problem.QuestionId --><li ng-if="ProblemView.Problem.QuestionId" class="ng-scope">
+                <a ng-href="/Question/Index.html#questionId=2927" target="_blank" href="/Question/Index.html#questionId=2927">
+                    <i class="fa fa-arrow-right"></i>
+                    讨论区<i class="fa arrow"></i>
+                </a>
+            </li><!-- end ngIf: ProblemView.Problem.QuestionId -->
+            <!-- ngIf: ProblemView.Problem.SolutionLength >= 10 && (ProblemView.Problem.ShowType === NodEnum.ShowTypeEnum.Show.Index || ProblemView.UserView.CanSolution) --><li ng-if="ProblemView.Problem.SolutionLength >= 10 &amp;&amp; (ProblemView.Problem.ShowType === NodEnum.ShowTypeEnum.Show.Index || ProblemView.UserView.CanSolution)" class="ng-scope">
+                <a ng-href="/Challenge/ProblemSolution.html#problemId=2498" href="/Challenge/ProblemSolution.html#problemId=2498">
+                    <i class="fa fa-arrow-right"></i>
+                    解题报告<i class="fa arrow"></i>
+                </a>
+            </li><!-- end ngIf: ProblemView.Problem.SolutionLength >= 10 && (ProblemView.Problem.ShowType === NodEnum.ShowTypeEnum.Show.Index || ProblemView.UserView.CanSolution) -->
+            <!-- ngIf: ProblemView.UserView.CanDownloadZip -->
+        </ul>
+    </div>
+    <!-- ngIf: Top3.length --><div class="ibox-content ng-scope" ng-if="Top3.length">
+        <!-- ngRepeat: JudgeView in Top3 --><div class="col-lg-12 m-b-sm clear ng-scope" ng-repeat="JudgeView in Top3">
+            <span class="pull-right m-t-sm" style="font-size: 20px">
+                <!-- ngIf: $index === 0 --><i ng-if="$index === 0" class="fa fa-award g-color-yellow ng-scope"></i><!-- end ngIf: $index === 0 -->
+                <!-- ngIf: $index === 1 -->
+                <!-- ngIf: $index === 2 -->
+            </span>
+                        <div class="pull-left">
+                <!-- ngIf: JudgeView.User.Id --><a ng-href="/Challenge/UserIndex.html#userId=192477" ng-if="JudgeView.User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=192477">
+    <img class="img-circle circle-border img-md" alt="Zc-Ethan" title="Zc-Ethan" ng-src="//upload.51nod.com/User_Upload/192477/root/头像.jpg" src="//upload.51nod.com/User_Upload/192477/root/头像.jpg">
+</a><!-- end ngIf: JudgeView.User.Id -->
+<!-- ngIf: !JudgeView.User.Id -->
+            </div>
+            <div class="pull-left" style="max-width: calc(100% - 10rem)">
+                <div class="m-t-xs m-l-sm">
+                    <div class="line1">
+                        <h2 class="no-margins"><!-- ngIf: JudgeView.User.Id --><a ng-href="/Challenge/UserIndex.html#userId=192477" ng-if="JudgeView.User.Id" class="ng-binding ng-scope" href="/Challenge/UserIndex.html#userId=192477">
+    Zc-Ethan
+</a><!-- end ngIf: JudgeView.User.Id -->
+<!-- ngIf: !JudgeView.User.Id -->
+
+                        </h2>
+                        <span class="ng-binding">我将自己摊成稿纸,让岁月前来点苔
+                        </span>
+                        <small class="clear ng-binding">2021/1/18  20:25:22</small>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end ngRepeat: JudgeView in Top3 --><div class="col-lg-12 m-b-sm clear ng-scope" ng-repeat="JudgeView in Top3">
+            <span class="pull-right m-t-sm" style="font-size: 20px">
+                <!-- ngIf: $index === 0 -->
+                <!-- ngIf: $index === 1 --><i ng-if="$index === 1" class="fa fa-award g-color-gray-light-v1 ng-scope"></i><!-- end ngIf: $index === 1 -->
+                <!-- ngIf: $index === 2 -->
+            </span>
+                        <div class="pull-left">
+                <!-- ngIf: JudgeView.User.Id --><a ng-href="/Challenge/UserIndex.html#userId=187046" ng-if="JudgeView.User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=187046">
+    <img class="img-circle circle-border img-md" alt="NNshadow" title="NNshadow" ng-src="//upload.51nod.com/User_Upload/187046/root/彦头像.png" src="//upload.51nod.com/User_Upload/187046/root/彦头像.png">
+</a><!-- end ngIf: JudgeView.User.Id -->
+<!-- ngIf: !JudgeView.User.Id -->
+            </div>
+            <div class="pull-left" style="max-width: calc(100% - 10rem)">
+                <div class="m-t-xs m-l-sm">
+                    <div class="line1">
+                        <h2 class="no-margins"><!-- ngIf: JudgeView.User.Id --><a ng-href="/Challenge/UserIndex.html#userId=187046" ng-if="JudgeView.User.Id" class="ng-binding ng-scope" href="/Challenge/UserIndex.html#userId=187046">
+    NNshadow
+</a><!-- end ngIf: JudgeView.User.Id -->
+<!-- ngIf: !JudgeView.User.Id -->
+
+                        </h2>
+                        <span class="ng-binding">
+                        </span>
+                        <small class="clear ng-binding">2021/1/21  14:02:54</small>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end ngRepeat: JudgeView in Top3 --><div class="col-lg-12 m-b-sm clear ng-scope" ng-repeat="JudgeView in Top3">
+            <span class="pull-right m-t-sm" style="font-size: 20px">
+                <!-- ngIf: $index === 0 -->
+                <!-- ngIf: $index === 1 -->
+                <!-- ngIf: $index === 2 --><i ng-if="$index === 2" class="fa fa-award g-color-red ng-scope"></i><!-- end ngIf: $index === 2 -->
+            </span>
+                        <div class="pull-left">
+                <!-- ngIf: JudgeView.User.Id --><a ng-href="/Challenge/UserIndex.html#userId=192539" ng-if="JudgeView.User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=192539">
+    <img class="img-circle circle-border img-md" alt="手机用户332" title="手机用户332" ng-src="/images/default/male.jpg" src="/images/default/male.jpg">
+</a><!-- end ngIf: JudgeView.User.Id -->
+<!-- ngIf: !JudgeView.User.Id -->
+            </div>
+            <div class="pull-left" style="max-width: calc(100% - 10rem)">
+                <div class="m-t-xs m-l-sm">
+                    <div class="line1">
+                        <h2 class="no-margins"><!-- ngIf: JudgeView.User.Id --><a ng-href="/Challenge/UserIndex.html#userId=192539" ng-if="JudgeView.User.Id" class="ng-binding ng-scope" href="/Challenge/UserIndex.html#userId=192539">
+    手机用户332
+</a><!-- end ngIf: JudgeView.User.Id -->
+<!-- ngIf: !JudgeView.User.Id -->
+
+                        </h2>
+                        <span class="ng-binding">
+                        </span>
+                        <small class="clear ng-binding">2021/1/24  20:36:07</small>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end ngRepeat: JudgeView in Top3 -->
+    </div><!-- end ngIf: Top3.length -->
+    <div class="ibox-content">
+    <div class="team-members">
+        <!-- ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=210845" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=210845">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="qwqwqa" title="qwqwqa" ng-src="//upload.51nod.com/User_Upload/210845/root/ssl.duitang.jpg" src="//upload.51nod.com/User_Upload/210845/root/ssl.duitang.jpg">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=5374" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=5374">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="2997ms" title="2997ms" ng-src="//upload.51nod.com/User_Upload/5374/root/截屏2021-04-05 上午10.17.37.png" src="//upload.51nod.com/User_Upload/5374/root/截屏2021-04-05 上午10.17.37.png">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=16437" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=16437">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="0" title="0" ng-src="http://qzapp.qlogo.cn/qzapp/100306089/E79055FC7C619B088EA23F872271968F/100" src="http://qzapp.qlogo.cn/qzapp/100306089/E79055FC7C619B088EA23F872271968F/100">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=214274" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=214274">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="JinChuan" title="JinChuan" ng-src="/images/default/male.jpg" src="/images/default/male.jpg">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=196138" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=196138">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="郑璟辰" title="郑璟辰" ng-src="/images/default/male.jpg" src="/images/default/male.jpg">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=197584" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=197584">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="王家怡" title="王家怡" ng-src="//upload.51nod.com/User_Upload/197584/root/d7da7b899e510fb3854557c7ce33c895d1430c1c.jpg" src="//upload.51nod.com/User_Upload/197584/root/d7da7b899e510fb3854557c7ce33c895d1430c1c.jpg">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=196080" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=196080">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="王梓涵" title="王梓涵" ng-src="/images/default/male.jpg" src="/images/default/male.jpg">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=40717" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=40717">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="WBW2333" title="WBW2333" ng-src="//upload.51nod.com/User_Upload/40717/root/截屏2021-02-20 下午10.19.12.png" src="//upload.51nod.com/User_Upload/40717/root/截屏2021-02-20 下午10.19.12.png">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=192539" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=192539">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="手机用户332" title="手机用户332" ng-src="/images/default/male.jpg" src="/images/default/male.jpg">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=187046" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=187046">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="NNshadow" title="NNshadow" ng-src="//upload.51nod.com/User_Upload/187046/root/彦头像.png" src="//upload.51nod.com/User_Upload/187046/root/彦头像.png">
+</a><!-- end ngIf: User.Id -->
+<!-- ngIf: !User.Id -->
+        </span><!-- end ngRepeat: User in User40 --><span ng-repeat="User in User40" class="ng-scope">
+                        <!-- ngIf: User.Id --><a ng-href="/Challenge/UserIndex.html#userId=192477" ng-if="User.Id" class="ng-scope" href="/Challenge/UserIndex.html#userId=192477">
+    <img class="img-circle img-sm" style="width:24px; height:24px" alt="Zc-Ethan" title="Zc-Ethan" ng-src="//upload.51nod.com/User_Upload/192477/root/头像.jpg" src="//upload.51nod.com/User_Upload/192477/root/头像.jpg">
+</a>
+        </span><!-- end ngRepeat: User in User40 -->
+    </div>
+</div>
+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div id="qb-sougou-search" style="display: none; opacity: 0;"><p>搜索</p><p class="last-btn">复制</p><iframe src=""></iframe></div></body></html>

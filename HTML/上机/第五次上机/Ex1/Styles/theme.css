@@ -1,0 +1,106 @@
+/* global styles */
+
+body
+{
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+a
+{
+	color: white;
+	text-decoration: none;
+}
+
+li{
+	list-style: none;
+}
+.container
+{
+	width: 870px;
+	height: 100%;
+	margin: 0px auto;
+}
+
+#logo
+{
+	font-size: 48px;
+	font-weight: bold;
+	color: #2a801f;
+	padding: 0px 5px;
+	padding-left: 0px;
+	margin: 10px 0px;
+	text-align: left;	
+}
+
+.nav
+{
+	height: 40px;
+	width: 100%;
+	background-color: #e5e5e5;
+	margin-bottom: 5px;
+	float: top;
+}
+
+.page-link
+{
+	height: 40px;
+	width: 180px;
+	font-size: 19px;
+	font-weight: bold;
+    text-align: center;
+	padding-top: 9px; 
+	background-repeat: no-repeat;
+	background-image: url(../images/page-button.png);
+	float: left;
+}
+
+
+.go-to-cart-link
+{
+	width: 130px;
+	font-size: 18px;
+	color: #2a801f;
+	font-weight: bold;
+	padding-top: 12px;	
+	padding-right: 15px;
+	text-align: right;
+	background-image: url(../images/cart-green-icon.png);
+	background-repeat: no-repeat;
+	float: right;
+}
+
+.text
+{
+	color: #5b5b5b;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: left;
+	line-height: 15px;
+}
+
+.footer
+{
+	height: 40px;
+	width: 100%;
+	background-color: #e5e5e5;
+	margin: 50px auto 10px;	
+}
+
+.footer p
+{
+	text-align: left;
+	float: left;
+}
+
+.xbox-link
+{
+	text-decoration: underline;
+	color: #2a801f;
+}
+
+/* navigation */
+
+
+
+

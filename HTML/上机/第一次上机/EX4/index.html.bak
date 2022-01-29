@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>超链接</title>
+</head>
+<body>
+<p>
+  <img src="images/logo.JPG" alt="Logo" title="logo" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>登录</b> &nbsp;|&nbsp;关于贵美&nbsp;|&nbsp;贵美助理&nbsp;|&nbsp;
+  联系我们</p>
+<p>
+  手机 - 诺基亚 - <a href="#MOTO">MOTO</a> - 索爱</p>
+<h1> 导购资讯 </h1>
+<p>
+  参观电玩达人的宝贝仓库<br />
+  炎炎夏日，冰凉家具两折起<br />
+  周末折扣，品牌三折热卖</p>
+<hr />
+网游专区
+<ol>
+  <li>QQ幻想100点卡只需￥8.8元</li>
+  <li>热血江湖250点只需￥8.8元</li>
+  <li>问道30元卡只需￥25.0元</li>
+  <li>跑跑点卡200点只需￥16.8元</li>
+</ol>
+数码产品
+<ul>
+ <li>最酷音乐手机导购</li> 
+ <li>最强街机6300仅售1450</li> 
+ <li>99元热销学生Mp3推荐</li> 
+ <li>漫步者音箱76元搞定</li> 
+</ul>
+<hr />
+<p><a name="MOTO" id="MOTO">MOTO E2 音乐手机</a></p>
+<pre >
+  130W像素摄像头 Linux智能系统
+  Intel XScale 处理器
+  A2DP蓝牙立体声 市场价：1690
+  开学价：1045
+</pre>
+<hr />
+版权信息： Copyright &copy;&nbsp;1998 - 2007&nbsp;GuiMei&nbsp;Shopping Inc. All Rights Reserved 
+</body>
+</html>
